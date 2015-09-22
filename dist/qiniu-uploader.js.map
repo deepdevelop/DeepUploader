@@ -1,0 +1,1 @@
+{"version":3,"sources":["../src/qiniu-uploader.js"],"names":[],"mappings":";;;;IAAM,aAAa,GACN,SADP,aAAa,GACH;wBADV,aAAa;;AAEf,SAAO,CAAC,GAAG,CAAC,cAAc,CAAC,CAAC;CAC7B","file":"qiniu-uploader.js","sourcesContent":["class QiniuUploader {\n  constructor() {\n    console.log('hello there.');\n  }\n}"]}
