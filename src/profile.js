@@ -1,4 +1,4 @@
-class Profile {
+export default class Profile {
   constructor(uploader, options={}) {
     this.uploader = uploader;
     
@@ -9,7 +9,8 @@ class Profile {
     this.uptokenUrl = options.uptokenUrl;
 
     this.public = true;
-    if (options.has('public'))
+    if (options.public !== undefined) {
       this.public = options.public;
+    }
   }
 }
