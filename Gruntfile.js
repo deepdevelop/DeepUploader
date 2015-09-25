@@ -11,13 +11,13 @@ module.exports = function(grunt) {
       all: ['Gruntfile.js', 'src/**/*.js']
     },
 
-    babel: {
-      options: {
-        sourceMap: true
-      },
+    browserify: {
       dist: {
+        options: {
+          transform: [["babelify", { stage: 0 }]]
+        },
         files: {
-          'dist/qiniu-uploader.js': 'src/qiniu-uploader.js'
+          "dist/qiniu-uploader.js": "src/qiniu-uploader.js"
         }
       }
     },
@@ -44,8 +44,9 @@ module.exports = function(grunt) {
     },
   });
 
-  grunt.registerTask('build', ['jshint', 'babel', 'uglify']);
-  grunt.registerTask('default', ['build']);
+  grunt.registerTask('build', ['jshint', 'browserify', 'uglify']);
+  grunt.registerTask('default', ['build', 'watch']);
 
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks("grunt-browserify");
 };
