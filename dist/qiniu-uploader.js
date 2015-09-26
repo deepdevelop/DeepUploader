@@ -18,6 +18,7 @@ var Profile = function Profile(uploader) {
   this.bucket = options.bucket;
   this.domain = options.domain;
   this.ssl = options.ssl || false;
+  this.accept = options.accept;
   this.uptokenUrl = options.uptokenUrl;
 
   this["public"] = true;
@@ -80,6 +81,7 @@ var QiniuUploader = (function () {
       var uploader = this;
       var input = document.createElement('input');
       input.setAttribute('type', 'file');
+      input.setAttribute('accept', profile.accept);
 
       Object.assign(input.style, {
         visibility: 'hidden',
@@ -90,7 +92,7 @@ var QiniuUploader = (function () {
 
       document.body.appendChild(input);
       input.addEventListener('change', function (e) {
-        if (e.target.value) {
+        if (input.value.length > 0) {
           uploader.addFiles(e.target.files, element, profile);
         }
 

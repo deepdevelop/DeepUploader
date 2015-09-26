@@ -43,6 +43,7 @@ class QiniuUploader {
     var uploader = this;
     var input = document.createElement('input');
     input.setAttribute('type', 'file');
+    input.setAttribute('accept', profile.accept);
 
     Object.assign(input.style, {
       visibility: 'hidden',
@@ -53,7 +54,7 @@ class QiniuUploader {
 
     document.body.appendChild(input);
     input.addEventListener('change', e => {
-      if (e.target.value) {
+      if (input.value.length > 0) {
         uploader.addFiles(e.target.files, element, profile);
       }
 
