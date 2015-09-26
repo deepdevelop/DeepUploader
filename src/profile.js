@@ -6,6 +6,7 @@ export default class Profile {
     this.bucket = options.bucket;
     this.domain = options.domain;
     this.ssl = options.ssl || false;
+    this.accept = options.accept;
     this.uptokenUrl = options.uptokenUrl;
 
     this.public = true;
