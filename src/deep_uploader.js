@@ -1,4 +1,3 @@
-import Profile from './profile';
 import FileTrigger from './file_trigger';
 import QiniuUploader from './uploaders/qiniu_uploader';
 
@@ -48,24 +47,5 @@ DeepUploader.browse = function(element, uploaderProfile) {
 DeepUploader.browseHandler = function() {
   DeepUploader.browse(this);
 };
-
-
-//   upload(file, element, profile) {
-//     var formData = new FormData();
-//     // FIXME: 使用自定义的 filename
-//     formData.append(this.options.paramName, file, file.name);
-
-//     var xhr = new XMLHttpRequest();
-//     xhr.open('POST', profile.uploadUrl, true);
-//     xhr.onload = function () {
-//       if (xhr.status === 200) {
-//         uploadButton.innerHTML = 'Upload';
-//       } else {
-//         alert('An error occurred!');
-//       }
-//     };
-//     xhr.send(formData);
-//   }
-
 
 window.DeepUploader = DeepUploader;
