@@ -1,8 +1,8 @@
 {
-  "name": "ff-qiniu-uploader",
+  "name": "deep_uploader",
   "version": "1.0.0",
   "description": "七牛直传组件",
-  "main": "dist/ff-qiniu-uploader",
+  "main": "dist/deep_uploader.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
