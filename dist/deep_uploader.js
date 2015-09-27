@@ -160,18 +160,19 @@ exports['default'] = FileTrigger;
 module.exports = exports['default'];
 
 },{"./event_trigger":2}],4:[function(require,module,exports){
-"use strict";
-
 // export default class Profile {
 //   constructor(options={}) {
 //     this.name = options.name;
 //     this.adapter = options.adapter;
 
-//     this.bucket = options.bucket;
-//     this.domain = options.domain;
-//     this.ssl = options.ssl || false;
-//     this.uptokenUrl = options.uptokenUrl;
-//     this.uploadUrl = options.uploadUrl || 'http://upload.qiniu.com/'
+"use strict";
+
+undefined.name = options.name;
+undefined.bucket = options.bucket;
+undefined.domain = options.domain;
+undefined.ssl = options.ssl || false;
+undefined.accept = options.accept;
+undefined.uptokenUrl = options.uptokenUrl;
 
 //     this.public = true;
 //     if (options.public !== undefined) {

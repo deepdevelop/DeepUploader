@@ -3,11 +3,12 @@
 //     this.name = options.name;
 //     this.adapter = options.adapter;
     
-//     this.bucket = options.bucket;
-//     this.domain = options.domain;
-//     this.ssl = options.ssl || false;
-//     this.uptokenUrl = options.uptokenUrl;
-//     this.uploadUrl = options.uploadUrl || 'http://upload.qiniu.com/'
+    this.name = options.name;
+    this.bucket = options.bucket;
+    this.domain = options.domain;
+    this.ssl = options.ssl || false;
+    this.accept = options.accept;
+    this.uptokenUrl = options.uptokenUrl;
 
 //     this.public = true;
 //     if (options.public !== undefined) {
