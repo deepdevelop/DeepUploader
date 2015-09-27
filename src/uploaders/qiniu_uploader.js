@@ -1,4 +1,5 @@
 // http://developer.qiniu.com/docs/v6/api/overview/up/form-upload.html
+// http://jssdk.demo.qiniu.io/
 
 import BaseUploader from './base_uploader';
 
@@ -12,22 +13,40 @@ export default class QiniuUploader extends BaseUploader {
     }
   }
 
-  start() {
-    var _this  = this;
-
+  // Fetch upload token from profile.uptokenUrl
+  _fetchUploadToken(callback) {
+    var self = this;
     var request = new XMLHttpRequest();
+
     request.open('GET', this.profile.uptokenUrl, true);
     request.onload = function () {
       if (request.status === 200) {
         var data = JSON.parse(request.responseText);
-        _this.uptoken = data.uptoken;
-        console.log('Uptoken:', _this.uptoken);
+        self.formData.append('token', data.uptoken);
 
-        super.start();
+        callback();
       }
     };
 
-    request.send();
+    request.send();  
   }
 
+  onBeforeUpload(callback) {
+    self = this;
+
+    super.onBeforeUpload(function() {
+      self._fetchUploadToken(callback);
+    });
+  }
+
+  onFileUploaded(data, callback) {
+    var self = this;
+
+    super.onFileUploaded(data, function() {
+      var filename = encodeURIComponent(self.response.key);
+      self.response.url = self.profile.domain + filename;
+
+      callback();
+    });
+  }
 }

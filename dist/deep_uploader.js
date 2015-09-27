@@ -219,39 +219,73 @@ var BaseUploader = (function () {
   }, {
     key: 'start',
     value: function start() {
-      this.xhr = new XMLHttpRequest();
-      this.xhr.open('POST', this.profile.uploadUrl, true);
+      var self = this;
 
-      this.onBeforeUpload();
+      self.xhr = new XMLHttpRequest();
+      self.xhr.open('POST', self.profile.uploadUrl, true);
+
+      this.onBeforeUpload(function () {
+        _event_trigger2['default'].trigger(self.element, 'BeforeUpload', self._detail());
+
+        self.upload(function () {
+          _event_trigger2['default'].trigger(self.element, 'FileUpload', self._detail());
+        });
+      });
+    }
+  }, {
+    key: 'onBeforeUpload',
+    value: function onBeforeUpload(callback) {
+      this.formData = new FormData();
+      this.formData.append('file', this.file);
+      this.formData.append('name', this.file.name);
+      this.formData.append('key', this.file.name);
+
+      callback();
     }
   }, {
     key: 'upload',
-    value: function upload() {
-      _event_trigger2['default'].trigger(this.element, 'FileUpload', this._detail());
-      console.log('File upload:', this.file);
+    value: function upload(callback) {
+      var self = this;
+
+      self.xhr.onload = function () {
+        if (self.xhr.status === 200) {
+          var data = JSON.parse(self.xhr.responseText);
+          self.onFileUploaded(data, function () {
+            var detail = self._detail();
+            detail.response = self.response;
+
+            _event_trigger2['default'].trigger(self.element, 'FileUploaded', detail);
+          });
+        } else {
+          self.onFileError(self.xhr.status, self.xhr.responseText);
+        }
+      };
+      self.xhr.send(self.formData);
+
+      callback();
     }
   }, {
     key: 'cancel',
     value: function cancel() {}
   }, {
-    key: 'onBeforeUpload',
-    value: function onBeforeUpload() {
-      _event_trigger2['default'].trigger(this.element, 'BeforeUpload', this._detail());
-
-      this.upload();
-    }
-  }, {
-    key: 'onFileUpload',
-    value: function onFileUpload() {}
-  }, {
     key: 'onFileProgress',
     value: function onFileProgress() {}
   }, {
     key: 'onFileUploaded',
-    value: function onFileUploaded() {}
+    value: function onFileUploaded(data, callback) {
+      this.response = data;
+
+      callback();
+    }
   }, {
     key: 'onFileError',
-    value: function onFileError() {}
+    value: function onFileError(status, response) {
+      var detail = this._detail();
+      detail.responseStatus = status;
+      detail.responseText = response;
+
+      _event_trigger2['default'].trigger(this.element, 'FileError', detail);
+    }
   }]);
 
   return BaseUploader;
@@ -262,6 +296,7 @@ module.exports = exports['default'];
 
 },{"../event_trigger":2}],6:[function(require,module,exports){
 // http://developer.qiniu.com/docs/v6/api/overview/up/form-upload.html
+// http://jssdk.demo.qiniu.io/
 
 'use strict';
 
@@ -297,26 +332,46 @@ var QiniuUploader = (function (_BaseUploader) {
     }
   }
 
+  // Fetch upload token from profile.uptokenUrl
+
   _createClass(QiniuUploader, [{
-    key: 'start',
-    value: function start() {
-      var _this2 = this;
-
-      var _this = this;
-
+    key: '_fetchUploadToken',
+    value: function _fetchUploadToken(callback) {
+      var self = this;
       var request = new XMLHttpRequest();
+
       request.open('GET', this.profile.uptokenUrl, true);
       request.onload = function () {
         if (request.status === 200) {
           var data = JSON.parse(request.responseText);
-          _this.uptoken = data.uptoken;
-          console.log('Uptoken:', _this.uptoken);
+          self.formData.append('token', data.uptoken);
 
-          _get(Object.getPrototypeOf(QiniuUploader.prototype), 'start', _this2).call(_this2);
+          callback();
         }
       };
 
       request.send();
+    }
+  }, {
+    key: 'onBeforeUpload',
+    value: function onBeforeUpload(callback) {
+      self = this;
+
+      _get(Object.getPrototypeOf(QiniuUploader.prototype), 'onBeforeUpload', this).call(this, function () {
+        self._fetchUploadToken(callback);
+      });
+    }
+  }, {
+    key: 'onFileUploaded',
+    value: function onFileUploaded(data, callback) {
+      var self = this;
+
+      _get(Object.getPrototypeOf(QiniuUploader.prototype), 'onFileUploaded', this).call(this, data, function () {
+        var filename = encodeURIComponent(self.response.key);
+        self.response.url = self.profile.domain + filename;
+
+        callback();
+      });
     }
   }]);
 
