@@ -1,16 +1,17 @@
-export default class Profile {
-  constructor(uploader, options={}) {
-    this.uploader = uploader;
+// export default class Profile {
+//   constructor(options={}) {
+//     this.name = options.name;
+//     this.adapter = options.adapter;
     
-    this.name = options.name;
-    this.bucket = options.bucket;
-    this.domain = options.domain;
-    this.ssl = options.ssl || false;
-    this.uptokenUrl = options.uptokenUrl;
+//     this.bucket = options.bucket;
+//     this.domain = options.domain;
+//     this.ssl = options.ssl || false;
+//     this.uptokenUrl = options.uptokenUrl;
+//     this.uploadUrl = options.uploadUrl || 'http://upload.qiniu.com/'
 
-    this.public = true;
-    if (options.public !== undefined) {
-      this.public = options.public;
-    }
-  }
-}
+//     this.public = true;
+//     if (options.public !== undefined) {
+//       this.public = options.public;
+//     }
+//   }
+// }
