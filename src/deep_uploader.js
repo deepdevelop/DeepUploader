@@ -1,5 +1,4 @@
 import Profile from './profile';
-import UploadTask from './upload_task';
 import FileTrigger from './file_trigger';
 import QiniuUploader from './uploaders/qiniu_uploader';
 
@@ -68,13 +67,5 @@ DeepUploader.browseHandler = function() {
 //     xhr.send(formData);
 //   }
 
-//   browse(element, profileName) {
-//     var profile = this.profiles[profileName];
-//     if (!profile) throw `Profile '${profileName}' not registered`;
-
-//     var input = this._makeInput(element, profile);
-//     input.click();
-//   }
-// }
 
 window.DeepUploader = DeepUploader;

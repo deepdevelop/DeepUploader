@@ -28,7 +28,7 @@ FileTrigger.trigger = function(element, profile, callback) {
 
     for (var i = 0; i < files.length; i++) {
       callback(files[i]);
-      EventTrigger.trigger(element, 'file:added', {
+      EventTrigger.trigger(element, 'FileAdded', {
         element: element,
         profile: profile,
         file: files[i]
