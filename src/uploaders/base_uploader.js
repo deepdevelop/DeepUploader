@@ -56,6 +56,20 @@ export default class BaseUploader {
         self.onFileError(self.xhr.status, self.xhr.responseText);
       }
     };
+
+    self.xhr.upload.onprogress = function(event) {
+      if (event.lengthComputable) {
+        var percent = event.loaded / event.total;
+        var percentText = percent;
+
+        self.onFileProgress(function() {
+          var detail = self._detail();
+          detail.percent = percent;
+
+          EventTrigger.trigger(self.element, 'FileProgress', detail);
+        });
+      }
+    };
     self.xhr.send(self.formData);
 
     callback();
@@ -63,7 +77,9 @@ export default class BaseUploader {
 
   cancel() {}
 
-  onFileProgress() {}
+  onFileProgress(callback) {
+    callback();
+  }
 
   onFileUploaded(data, callback) {
     this.response = data;

@@ -218,6 +218,20 @@ var BaseUploader = (function () {
           self.onFileError(self.xhr.status, self.xhr.responseText);
         }
       };
+
+      self.xhr.upload.onprogress = function (event) {
+        if (event.lengthComputable) {
+          var percent = event.loaded / event.total;
+          var percentText = percent;
+
+          self.onFileProgress(function () {
+            var detail = self._detail();
+            detail.percent = percent;
+
+            _event_trigger2['default'].trigger(self.element, 'FileProgress', detail);
+          });
+        }
+      };
       self.xhr.send(self.formData);
 
       callback();
@@ -227,7 +241,9 @@ var BaseUploader = (function () {
     value: function cancel() {}
   }, {
     key: 'onFileProgress',
-    value: function onFileProgress() {}
+    value: function onFileProgress(callback) {
+      callback();
+    }
   }, {
     key: 'onFileUploaded',
     value: function onFileUploaded(data, callback) {
