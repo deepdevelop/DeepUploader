@@ -17,7 +17,7 @@ module.exports = function(grunt) {
           transform: [["babelify", { stage: 0 }]]
         },
         files: {
-          "dist/deep_uploader.js": "src/deep_uploader.js"
+          "dist/deep-uploader.js": "src/deep-uploader.js"
         }
       }
     },
@@ -28,8 +28,8 @@ module.exports = function(grunt) {
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
       },
       build: {
-        src: 'dist/deep_uploader.js',
-        dest: 'dist/deep_uploader.min.js'
+        src: 'dist/deep-uploader.js',
+        dest: 'dist/deep-uploader.min.js'
       }
     },
 

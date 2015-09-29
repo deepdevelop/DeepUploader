@@ -1,7 +1,7 @@
 // http://developer.qiniu.com/docs/v6/api/overview/up/form-upload.html
 // http://jssdk.demo.qiniu.io/
 
-import BaseUploader from './base_uploader';
+import BaseUploader from './base-uploader';
 
 export default class QiniuUploader extends BaseUploader {
   constructor(element, profile, file) {

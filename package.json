@@ -2,7 +2,7 @@
   "name": "deep-uploader",
   "version": "0.1.0",
   "description": "七牛直传组件",
-  "main": "dist/deep_uploader.js",
+  "main": "dist/deep-uploader.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
