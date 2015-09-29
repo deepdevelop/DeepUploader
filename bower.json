@@ -1,0 +1,19 @@
+{
+  "name": "deep-uploader",
+  "version": "0.1.0",
+  "homepage": "https://github.com/deepdevelop/DeepUploader",
+  "authors": [
+    "greatghoul <greatghoul@gmail.com>"
+  ],
+  "description": "",
+  "main": "dist/deep_uploader.js",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

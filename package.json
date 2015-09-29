@@ -1,6 +1,6 @@
 {
-  "name": "deep_uploader",
-  "version": "1.0.0",
+  "name": "deep-uploader",
+  "version": "0.1.0",
   "description": "七牛直传组件",
   "main": "dist/deep_uploader.js",
   "scripts": {
