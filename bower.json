@@ -6,7 +6,7 @@
     "greatghoul <greatghoul@gmail.com>"
   ],
   "description": "",
-  "main": "dist/deep_uploader.js",
+  "main": "dist/deep-uploader.js",
   "moduleType": [],
   "license": "MIT",
   "ignore": [

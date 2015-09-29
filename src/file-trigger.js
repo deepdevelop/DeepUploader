@@ -1,4 +1,4 @@
-import EventTrigger from './event_trigger';
+import EventTrigger from './event-trigger';
 
 function makeInput(element, profile) {
   var input = document.createElement('input');

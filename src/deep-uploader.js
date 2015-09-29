@@ -1,5 +1,5 @@
-import FileTrigger from './file_trigger';
-import QiniuUploader from './uploaders/qiniu_uploader';
+import FileTrigger from './file-trigger';
+import QiniuUploader from './uploaders/qiniu-uploader';
 
 var profiles     = [];
 var uploaders    = {

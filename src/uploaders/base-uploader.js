@@ -1,4 +1,4 @@
-import EventTrigger from '../event_trigger';
+import EventTrigger from '../event-trigger';
 import uuid from 'uuid';
 
 export default class BaseUploader {

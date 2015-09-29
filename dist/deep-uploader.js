@@ -223,17 +223,17 @@ module.exports = uuid;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var _file_trigger = require('./file_trigger');
+var _fileTrigger = require('./file-trigger');
 
-var _file_trigger2 = _interopRequireDefault(_file_trigger);
+var _fileTrigger2 = _interopRequireDefault(_fileTrigger);
 
-var _uploadersQiniu_uploader = require('./uploaders/qiniu_uploader');
+var _uploadersQiniuUploader = require('./uploaders/qiniu-uploader');
 
-var _uploadersQiniu_uploader2 = _interopRequireDefault(_uploadersQiniu_uploader);
+var _uploadersQiniuUploader2 = _interopRequireDefault(_uploadersQiniuUploader);
 
 var profiles = [];
 var uploaders = {
-  qiniu: _uploadersQiniu_uploader2['default']
+  qiniu: _uploadersQiniuUploader2['default']
 };
 
 var DeepUploader = {};
@@ -267,7 +267,7 @@ DeepUploader.browse = function (element, uploaderProfile) {
   var profileName = element.dataset.uploaderProfile || uploaderProfile;
   var profile = getProfile(profileName);
 
-  _file_trigger2['default'].trigger(element, profile, function (file) {
+  _fileTrigger2['default'].trigger(element, profile, function (file) {
     var uploader = getUploader(element, profile, file);
     uploader.start();
   });
@@ -279,7 +279,7 @@ DeepUploader.browseHandler = function () {
 
 window.DeepUploader = DeepUploader;
 
-},{"./file_trigger":5,"./uploaders/qiniu_uploader":7}],4:[function(require,module,exports){
+},{"./file-trigger":5,"./uploaders/qiniu-uploader":7}],4:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -309,9 +309,9 @@ Object.defineProperty(exports, '__esModule', {
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var _event_trigger = require('./event_trigger');
+var _eventTrigger = require('./event-trigger');
 
-var _event_trigger2 = _interopRequireDefault(_event_trigger);
+var _eventTrigger2 = _interopRequireDefault(_eventTrigger);
 
 function makeInput(element, profile) {
   var input = document.createElement('input');
@@ -341,7 +341,7 @@ FileTrigger.trigger = function (element, profile, callback) {
 
     for (var i = 0; i < files.length; i++) {
       callback(files[i]);
-      _event_trigger2['default'].trigger(element, 'FileAdded', {
+      _eventTrigger2['default'].trigger(element, 'FileAdded', {
         element: element,
         profile: profile,
         file: files[i]
@@ -358,7 +358,7 @@ FileTrigger.trigger = function (element, profile, callback) {
 exports['default'] = FileTrigger;
 module.exports = exports['default'];
 
-},{"./event_trigger":4}],6:[function(require,module,exports){
+},{"./event-trigger":4}],6:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -371,9 +371,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-var _event_trigger = require('../event_trigger');
+var _eventTrigger = require('../event-trigger');
 
-var _event_trigger2 = _interopRequireDefault(_event_trigger);
+var _eventTrigger2 = _interopRequireDefault(_eventTrigger);
 
 var _uuid = require('uuid');
 
@@ -420,10 +420,10 @@ var BaseUploader = (function () {
       self.xhr.open('POST', self.profile.uploadUrl, true);
 
       this.onBeforeUpload(function () {
-        _event_trigger2['default'].trigger(self.element, 'BeforeUpload', self._detail());
+        _eventTrigger2['default'].trigger(self.element, 'BeforeUpload', self._detail());
 
         self.upload(function () {
-          _event_trigger2['default'].trigger(self.element, 'FileUpload', self._detail());
+          _eventTrigger2['default'].trigger(self.element, 'FileUpload', self._detail());
         });
       });
     }
@@ -450,7 +450,7 @@ var BaseUploader = (function () {
             var detail = self._detail();
             detail.response = self.response;
 
-            _event_trigger2['default'].trigger(self.element, 'FileUploaded', detail);
+            _eventTrigger2['default'].trigger(self.element, 'FileUploaded', detail);
           });
         } else {
           self.onFileError(self.xhr.status, self.xhr.responseText);
@@ -466,7 +466,7 @@ var BaseUploader = (function () {
             var detail = self._detail();
             detail.percent = percent;
 
-            _event_trigger2['default'].trigger(self.element, 'FileProgress', detail);
+            _eventTrigger2['default'].trigger(self.element, 'FileProgress', detail);
           });
         }
       };
@@ -496,7 +496,7 @@ var BaseUploader = (function () {
       detail.responseStatus = status;
       detail.responseText = response;
 
-      _event_trigger2['default'].trigger(this.element, 'FileError', detail);
+      _eventTrigger2['default'].trigger(this.element, 'FileError', detail);
     }
   }]);
 
@@ -506,7 +506,7 @@ var BaseUploader = (function () {
 exports['default'] = BaseUploader;
 module.exports = exports['default'];
 
-},{"../event_trigger":4,"uuid":2}],7:[function(require,module,exports){
+},{"../event-trigger":4,"uuid":2}],7:[function(require,module,exports){
 // http://developer.qiniu.com/docs/v6/api/overview/up/form-upload.html
 // http://jssdk.demo.qiniu.io/
 
@@ -526,9 +526,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var _base_uploader = require('./base_uploader');
+var _baseUploader = require('./base-uploader');
 
-var _base_uploader2 = _interopRequireDefault(_base_uploader);
+var _baseUploader2 = _interopRequireDefault(_baseUploader);
 
 var QiniuUploader = (function (_BaseUploader) {
   _inherits(QiniuUploader, _BaseUploader);
@@ -587,9 +587,9 @@ var QiniuUploader = (function (_BaseUploader) {
   }]);
 
   return QiniuUploader;
-})(_base_uploader2['default']);
+})(_baseUploader2['default']);
 
 exports['default'] = QiniuUploader;
 module.exports = exports['default'];
 
-},{"./base_uploader":6}]},{},[3]);
+},{"./base-uploader":6}]},{},[3]);
