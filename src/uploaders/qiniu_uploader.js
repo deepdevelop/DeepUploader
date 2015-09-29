@@ -43,8 +43,7 @@ export default class QiniuUploader extends BaseUploader {
     var self = this;
 
     super.onFileUploaded(data, function() {
-      var filename = encodeURIComponent(self.response.key);
-      self.response.url = self.profile.domain + filename;
+      self.response.url = self.profile.domain + self.response.key;
 
       callback();
     });

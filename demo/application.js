@@ -29,6 +29,8 @@ $(function() {
     var $image = $('<img />');
     $image.attr('src', event.originalEvent.detail.response.url);
     $image.appendTo('body');
+
+    console.log(event.originalEvent.detail.response.url);
   });
 
 

@@ -1,4 +1,5 @@
 import EventTrigger from '../event_trigger';
+import uuid from 'uuid';
 
 export default class BaseUploader {
   constructor(element, profile, file) {
@@ -14,6 +15,18 @@ export default class BaseUploader {
       file: this.file,
       xhr: this.xhr
     };
+  }
+
+  filename() {
+    var date = new Date();
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+        month = month > 10 ? month : '0' + month;
+
+    var fileExt = this.file.name.split('.').pop() || 'tmp';
+    var fileName = uuid.v4();
+
+    return `${year}/${month}/${fileName}.${fileExt}`;
   }
 
   start() {
@@ -32,10 +45,11 @@ export default class BaseUploader {
   }
 
   onBeforeUpload(callback) {
+    var filename = this.filename();
     this.formData = new FormData();
     this.formData.append('file', this.file);
-    this.formData.append('name', this.file.name);
-    this.formData.append('key', this.file.name);
+    // this.formData.append('name', filename);
+    this.formData.append('key', filename);
 
     callback();
   }
