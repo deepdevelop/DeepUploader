@@ -341,11 +341,6 @@ FileTrigger.trigger = function (element, profile, callback) {
 
     for (var i = 0; i < files.length; i++) {
       callback(files[i]);
-      _eventTrigger2['default'].trigger(element, 'FileAdded', {
-        element: element,
-        profile: profile,
-        file: files[i]
-      });
     }
 
     // Destroy the file input
@@ -383,15 +378,19 @@ var BaseUploader = (function () {
   function BaseUploader(element, profile, file) {
     _classCallCheck(this, BaseUploader);
 
+    this.id = _uuid2['default'].v4();
     this.element = element;
     this.profile = profile;
     this.file = file;
+
+    _eventTrigger2['default'].trigger(this.element, 'FileAdded', this._detail());
   }
 
   _createClass(BaseUploader, [{
     key: '_detail',
     value: function _detail() {
       return {
+        id: this.id,
         element: this.element,
         profile: this.profile,
         file: this.file,
@@ -407,9 +406,8 @@ var BaseUploader = (function () {
       month = month > 9 ? month : '0' + month;
 
       var fileExt = this.file.name.split('.').pop() || 'tmp';
-      var fileName = _uuid2['default'].v4();
 
-      return year + '/' + month + '/' + fileName + '.' + fileExt;
+      return year + '/' + month + '/' + this.id + '.' + fileExt;
     }
   }, {
     key: 'start',

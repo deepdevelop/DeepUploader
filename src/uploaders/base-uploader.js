@@ -3,13 +3,17 @@ import uuid from 'uuid';
 
 export default class BaseUploader {
   constructor(element, profile, file) {
+    this.id = uuid.v4();
     this.element = element;
     this.profile = profile;
     this.file = file;
+
+    EventTrigger.trigger(this.element, 'FileAdded', this._detail());
   }
 
   _detail() {
     return {
+      id: this.id,
       element: this.element,
       profile: this.profile,
       file: this.file,
@@ -24,9 +28,8 @@ export default class BaseUploader {
         month = month > 9 ? month : '0' + month;
 
     var fileExt = this.file.name.split('.').pop() || 'tmp';
-    var fileName = uuid.v4();
 
-    return `${year}/${month}/${fileName}.${fileExt}`;
+    return `${year}/${month}/${this.id}.${fileExt}`;
   }
 
   start() {
